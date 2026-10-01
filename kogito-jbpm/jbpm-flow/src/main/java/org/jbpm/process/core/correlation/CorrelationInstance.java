@@ -18,6 +18,7 @@
  */
 package org.jbpm.process.core.correlation;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -94,14 +95,11 @@ public class CorrelationInstance {
         if (messageCorrelationVal.equals(processCorrelationVal)) {
             return true;
         }
-        // Unwrap a single-element Object[] on either side and retry
-        if (messageCorrelationVal instanceof Object[] && ((Object[]) messageCorrelationVal).length == 1) {
-            messageCorrelationVal = ((Object[]) messageCorrelationVal)[0];
+
+        if (processCorrelationVal instanceof Object[]) {
+            return Arrays.asList((Object[]) processCorrelationVal).contains(messageCorrelationVal);
         }
-        if (processCorrelationVal instanceof Object[] && ((Object[]) processCorrelationVal).length == 1) {
-            processCorrelationVal = ((Object[]) processCorrelationVal)[0];
-        }
-        return messageCorrelationVal != null && messageCorrelationVal.equals(processCorrelationVal);
+        return false;
     }
 
     @Override
