@@ -169,6 +169,7 @@ public class NamedEntryPoint implements InternalWorkingMemoryEntryPoint, Propert
                 null);
     }
 
+    @Deprecated(since = "5.0.1", forRemoval = false)
     public FactHandle insert(final Object object,
                              final boolean dynamic) {
         return insert(object, dynamic, null, null);
@@ -545,7 +546,7 @@ public class NamedEntryPoint implements InternalWorkingMemoryEntryPoint, Propert
         deleteFromTMS( handle, handle.getEqualityKey(), typeConf, null );
     }
 
-    protected void addPropertyChangeListener(final InternalFactHandle handle, final boolean dynamicFlag ) {
+    public void addPropertyChangeListener(final InternalFactHandle handle, final boolean dynamicFlag ) {
         Object object = handle.getObject();
         try {
             final Method method = object.getClass().getMethod( "addPropertyChangeListener",
